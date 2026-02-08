@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ExceptionHandlers {
     @ExceptionHandler(value = ApiException.class)
     public ErrorResponse handleApiException(ApiException e) {
-        log.warn("API exception", e);
+        log.warn("API exception: {}", e.getApiError(), e);
         return ErrorResponse.builder(e, e.getHttpStatus(), e.getApiError().name()).build();
     }
 }
