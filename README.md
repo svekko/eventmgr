@@ -11,6 +11,7 @@
 
 * Move to project root directory
 * Execute `./gradlew bootRun`
+* Login credentials can be found and modified in `application.yaml`: `spring.security.user`
 
 #### Running frontend
 
