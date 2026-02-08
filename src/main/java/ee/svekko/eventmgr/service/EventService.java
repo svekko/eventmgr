@@ -39,11 +39,11 @@ public class EventService {
     @Transactional
     public void addEvent(EventRequest request, Principal principal) {
         if (request.getEventDatetime().isBefore(OffsetDateTime.now())) {
-            throw ApiException.badRequest(ApiError.EVENT_ALREADY_OVER);
+            throw ApiException.badRequest(ApiError.EVENT_DATE_ALREADY_IN_PAST);
         }
 
         if (eventRepository.findByTitle(request.getTitle()).isPresent()) {
-            throw ApiException.badRequest(ApiError.EVENT_ALREADY_EXISTS);
+            throw ApiException.badRequest(ApiError.EVENT_WITH_SUCH_TITLE_ALREADY_EXISTS);
         }
 
         eventRepository.save(Event.builder()
@@ -65,7 +65,7 @@ public class EventService {
             .orElseThrow(() -> ApiException.notFound(ApiError.EVENT_NOT_FOUND));
 
         if (event.getEventDatetime().isBefore(OffsetDateTime.now())) {
-            throw ApiException.badRequest(ApiError.EVENT_ALREADY_OVER);
+            throw ApiException.badRequest(ApiError.EVENT_DATE_ALREADY_IN_PAST);
         }
 
         List<EventEnrolment> enrolments = eventEnrolmentRepository.findByEventId(event.getId());
@@ -74,7 +74,7 @@ public class EventService {
         }
 
         if (enrolments.stream().anyMatch(e -> e.getIdCode().equals(request.getIdCode()))) {
-            throw ApiException.badRequest(ApiError.EVENT_ALREADY_ENROLLED);
+            throw ApiException.badRequest(ApiError.EVENT_PERSON_ALREADY_ENROLLED);
         }
 
         eventEnrolmentRepository.save(EventEnrolment.builder()

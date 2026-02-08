@@ -14,6 +14,7 @@ const auth = inject<Auth>("auth");
 
 const showRegisterModal = ref(false);
 const showAddModal = ref(false);
+const loading = ref(false);
 const selectedEvent = ref<Event | null>(null);
 const events = ref<Event[]>([]);
 
@@ -38,8 +39,14 @@ function onAddEvent() {
 }
 
 async function loadEvents() {
-  const resp = await axios?.get("/events");
-  events.value = resp?.data;
+  loading.value = true;
+
+  try {
+    const resp = await axios?.get("/events");
+    events.value = resp?.data;
+  } finally {
+    loading.value = false;
+  }
 }
 
 onMounted(() => {
@@ -54,7 +61,9 @@ onMounted(() => {
       <Button label="Add Event" severity="info" @click="openNewEventModal" v-if="auth?.isAuthenticated()" />
     </div>
 
-    <DataTable :value="events" stripedRows>
+    <p v-if="loading">Loading...</p>
+
+    <DataTable :value="events" stripedRows v-else-if="events.length">
       <Column field="title" header="Title" />
       <Column field="maxEnrolments" header="Max enrolments" />
       <Column field="noOfEnrolments" header="Number of enrolments" />
@@ -65,6 +74,8 @@ onMounted(() => {
         </template>
       </Column>
     </DataTable>
+
+    <p v-else>No events found</p>
 
     <EventRegistrationModal v-model:visible="showRegisterModal" :event="selectedEvent" @register="onRegisterToEvent" />
     <AddEventModal v-model:visible="showAddModal" @add="onAddEvent" />
