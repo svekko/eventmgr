@@ -66,8 +66,9 @@ onMounted(() => {
 
     <DataTable :value="events" stripedRows v-else-if="events.length">
       <Column field="title" header="Title" />
-      <Column field="maxEnrolments" header="Max enrolments" />
-      <Column field="noOfEnrolments" header="Number of enrolments" />
+      <Column field="noOfEnrolments" header="Enrolments">
+        <template #body="slotProps">{{ slotProps.data.noOfEnrolments }} / {{ slotProps.data.maxEnrolments }}</template>
+      </Column>
       <Column field="eventDatetime" header="Datetime">
         <template #body="slotProps">
           {{ dayjs(slotProps.data.eventDatetime).format("YYYY-MM-DD HH:mm:ss") }}
