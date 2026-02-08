@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: Event Manager
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/net_group_event_manager
+    username: sven
+    password: sven
+    driver-class-name: org.postgresql.Driver
+
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+
+  security:
+    user:
+      name: user@example.com
+      password: password
+      roles: ADMIN
+
+    cors:
+      allowed-origins: http://localhost:5173
+
+  jpa:
+    hibernate:
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      ddl-auto: update
+
+jwt:
+  generator:
+    secret: ZWIxNzE4ZjMtM2M5My00NDhlLTg1NzAtMzYyYTU5ZTI4NTM3
+

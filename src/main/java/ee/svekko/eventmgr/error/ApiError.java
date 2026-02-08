@@ -1,0 +1,11 @@
+package ee.svekko.eventmgr.error;
+
+public enum ApiError {
+    EVENT_ALREADY_EXISTS,
+    EVENT_NOT_FOUND,
+    EVENT_NO_FREE_SPOTS_LEFT,
+    EVENT_ALREADY_ENROLLED,
+    EVENT_ALREADY_OVER,
+    UNAUTHORIZED,
+    INVALID_ID_CODE
+}
