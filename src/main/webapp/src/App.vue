@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Menubar from "primevue/menubar";
-import { computed, inject, watch } from "vue";
+import { computed, inject } from "vue";
 import { useRouter } from "vue-router";
 import Auth from "./auth/auth";
 
@@ -39,10 +39,6 @@ const navItems = computed(() => {
 const logout = () => {
   auth?.logout();
 };
-
-watch([auth?.token], () => {
-  console.log("token changed");
-});
 </script>
 
 <template>
