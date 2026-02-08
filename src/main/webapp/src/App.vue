@@ -54,11 +54,13 @@ watch([auth?.token], () => {
   </div>
 </template>
 
-<style scoped>
-.page-container {
+<style>
+* {
   font-family: Arial, Helvetica, sans-serif;
 }
+</style>
 
+<style scoped>
 .page-content {
   padding: 2rem;
 }
