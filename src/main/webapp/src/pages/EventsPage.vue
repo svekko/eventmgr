@@ -2,6 +2,7 @@
 import Auth from "@/auth/auth";
 import type { Event } from "@/dto/event";
 import type { AxiosInstance } from "axios";
+import dayjs from "dayjs";
 import Button from "primevue/button";
 import Column from "primevue/column";
 import DataTable from "primevue/datatable";
@@ -67,7 +68,11 @@ onMounted(() => {
       <Column field="title" header="Title" />
       <Column field="maxEnrolments" header="Max enrolments" />
       <Column field="noOfEnrolments" header="Number of enrolments" />
-      <Column field="eventDatetime" header="Datetime" />
+      <Column field="eventDatetime" header="Datetime">
+        <template #body="slotProps">
+          {{ dayjs(slotProps.data.eventDatetime).format("YYYY-MM-DD HH:mm:ss") }}
+        </template>
+      </Column>
       <Column header="Actions">
         <template #body="{ data }">
           <Button label="Register" severity="success" size="small" @click="openRegistrationModal(data)" />
