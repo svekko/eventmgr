@@ -52,7 +52,7 @@ function clearData() {
       </FloatLabel>
 
       <FloatLabel>
-        <DatePicker id="event-datetime" v-model="datetime" showTime dateFormat="yy-mm-dd" hourFormat="24" fluid required />
+        <DatePicker id="event-datetime" v-model="datetime" showTime dateFormat="yy-mm-dd" hourFormat="24" :minDate="new Date()" required />
         <label for="event-datetime">Event Date & Time</label>
       </FloatLabel>
 
